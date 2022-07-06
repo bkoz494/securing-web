@@ -4,6 +4,7 @@ import ch.qos.logback.core.net.SyslogOutputStream;
 import com.example.securingweb.DAO.UserRepository;
 import com.example.securingweb.Model.User;
 import com.example.securingweb.RegisterInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -18,6 +19,10 @@ import java.util.Optional;
 
 @Controller
 public class RegisterController {
+
+    @Autowired
+    UserRepository repository;
+
     @GetMapping("/register")
     public String greetingForm(Model model) {
         model.addAttribute("registerInfo", new RegisterInfo());
@@ -28,6 +33,10 @@ public class RegisterController {
     public String greetingSubmit(@ModelAttribute RegisterInfo registerInfo, Model model) {
         System.out.println("------------------------");
         System.out.println(registerInfo.toString());
+
+        repository.save(new User(registerInfo.getUsername(), registerInfo.getPassword()));
+        System.out.println("----------------");
+        System.out.println(repository.findByUsername(registerInfo.getUsername()).toString());
 
         model.addAttribute("registerInfo", registerInfo);
         return "registerInfo";
