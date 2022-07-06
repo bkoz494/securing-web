@@ -3,10 +3,12 @@ package com.example.securingweb;
 public class RegisterInfo {
     String username;
     String password;
+    String confirmPassword;
 
-    public RegisterInfo(String username, String password) {
+    public RegisterInfo(String username, String password, String confirmPassword) {
         this.username = username;
         this.password = password;
+        this.confirmPassword = confirmPassword;
     }
 
     public RegisterInfo() {
@@ -28,11 +30,20 @@ public class RegisterInfo {
         this.password = password;
     }
 
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
     @Override
     public String toString() {
         return "RegisterInfo{" +
-                "login='" + username + '\'' +
+                "username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", confirmPassword='" + confirmPassword + '\'' +
                 '}';
     }
 }
