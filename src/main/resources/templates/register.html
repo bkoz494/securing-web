@@ -2,14 +2,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <title>Spring Security Example </title>
+    <style>
+        .error {
+        color: red;
+        }
+    </style>
+    <title>Register</title>
 </head>
 <body>
-<div th:if="${param.error}">
-    Password and repeated password does not match.
-</div>
-<form th:action="@{/register}" th:object="${register}" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
+<form th:action="@{/register}" th:object="${registerInfo}" method="post">
+    <div>
+        <label> User Name : <input type="text" name="username"/> </label>
+
+        <p th:if="${#fields.hasErrors('username')}" th:errorclass="error" th:errors="*{username}" />
+    </div>
     <div><label> Password: <input type="password" name="password"/> </label></div>
     <div><label> Repeat password: <input type="password" name="confirmPassword"/> </label></div>
     <div><input type="submit" value="Sign Up"/></div>

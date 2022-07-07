@@ -1,21 +1,17 @@
 package com.example.securingweb.Controller;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import com.example.securingweb.DAO.UserRepository;
 import com.example.securingweb.Model.User;
-import com.example.securingweb.RegisterInfo;
+import com.example.securingweb.Model.RegisterInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.net.SocketAddress;
-import java.util.Optional;
+import javax.validation.Valid;
 
 @Controller
 public class RegisterController {
@@ -30,16 +26,17 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public String greetingSubmit(@ModelAttribute RegisterInfo registerInfo, Model model) {
-        System.out.println("------------------------");
-        System.out.println(registerInfo.toString());
+    public String greetingSubmit(@ModelAttribute @Valid RegisterInfo registerInfo, BindingResult result, Model model) {
 
+        if (result.hasErrors()) {
+            return "register";
+        }
         repository.save(new User(registerInfo.getUsername(), registerInfo.getPassword()));
-        System.out.println("----------------");
-        System.out.println(repository.findByUsername(registerInfo.getUsername()).toString());
+//        System.out.println("---------------- SAVE TO DB");
+//        System.out.println(repository.findByUsername(registerInfo.getUsername()).toString());
 
-        model.addAttribute("registerInfo", registerInfo);
-        return "registerInfo";
+        model.addAttribute("registerSuccess", registerInfo);
+        return "registerSuccess";
     }
     /*public UserDetailsService userDetailsService() {
         UserDetails user =
