@@ -37,16 +37,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	/*The userDetailsService() method sets up an in-memory user store with a single user. That user is given
 	a user name of user, a password of password, and a role of USER.*/
-	@Bean
-	@Override
-	public UserDetailsService userDetailsService() {
-		UserDetails user =
-			 User.withDefaultPasswordEncoder()
-				.username("user")
-				.password("password")
-				.roles("USER")
-				.build();
-
-		return new InMemoryUserDetailsManager(user);
-	}
+//	@Bean
+//	@Override
+//	public UserDetailsService userDetailsService() {
+//		UserDetails user =
+//			 User.withDefaultPasswordEncoder()
+//				.username("user")
+//				.password("password")
+//				.roles("USER")
+//				.build();
+//
+//		return new InMemoryUserDetailsManager(user);
+//	}
 }

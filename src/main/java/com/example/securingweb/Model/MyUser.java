@@ -1,33 +1,30 @@
 package com.example.securingweb.Model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 
-public class User {
+public class MyUser {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     Long id;
-    
+    @Column(nullable = false, unique = true)
     String username;
     String password;
 
-    public User(Long id, String username, String password) {
+    public MyUser(Long id, String username, String password) {
         this.id = id;
         this.username = username;
         this.password = password;
     }
 
-    public User(String username, String password) {
+    public MyUser(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
-    public User() {
+    public MyUser() {
     }
 
     public Long getId() {
