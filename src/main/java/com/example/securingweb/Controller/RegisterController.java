@@ -3,10 +3,12 @@ package com.example.securingweb.Controller;
 import com.example.securingweb.DAO.UserRepository;
 import com.example.securingweb.Model.User;
 import com.example.securingweb.Model.RegisterInfo;
+import com.example.securingweb.Service.RegisterValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +19,9 @@ import javax.validation.Valid;
 public class RegisterController {
 
     @Autowired
-    UserRepository repository;
+    private UserRepository repository;
+    @Autowired
+    private RegisterValidationService registerValidation;
 
     @GetMapping("/register")
     public String greetingForm(Model model) {
@@ -27,7 +31,11 @@ public class RegisterController {
 
     @PostMapping("/register")
     public String greetingSubmit(@ModelAttribute @Valid RegisterInfo registerInfo, BindingResult result, Model model) {
-
+        String err = registerValidation.passwordConfirmation(registerInfo);
+        if (!err.isEmpty()) {
+            ObjectError error = new ObjectError("globalError", err);
+            result.addError(error);
+        }
         if (result.hasErrors()) {
             return "register";
         }
