@@ -16,6 +16,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.Calendar;
+
 @Controller
 public class JournalController {
 
@@ -47,6 +52,11 @@ public class JournalController {
         String currentPrincipalName = authentication.getName();
         MyUser currentUser = userRepo.findByUsername(currentPrincipalName);
         journalEntry.setUserId(currentUser.getId());
+        //DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).format(anotherSummerDay
+//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime dateTime = LocalDateTime.now();
+        DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).format(dateTime);
+        journalEntry.setDateAndTime(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).format(dateTime).toString());
         journalRepo.save(journalEntry);
         return "redirect:/journal";
     }

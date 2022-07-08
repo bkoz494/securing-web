@@ -13,27 +13,35 @@
     <h1 th:inline="text">This is [[${#httpServletRequest.remoteUser}]]'s journal</h1>
 
     <div class="container">
-        <h3>List Entries</h3>
+        <h3>List of Entries</h3>
         <hr/>
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th>Id</th>
+                    <th>Date</th>
                     <th>Text</th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="entry: ${entries}">
                     <td th:text="${entry.id}" />
+                    <td th:text="${entry.dateAndTime}"/>
                     <td th:text="${entry.text}" />
                 </tr>
             </tbody>
         </table>
-    </div>
 
-    <a th:href="@{/addnew}" class="btn btn-primary btn-sm mb-3" >Add Entry</a>
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Sign Out"/>
-    </form>
+        <table>
+            <tbody>
+            <form th:action="@{/addnew}">
+                <button type="submit" class="btn btn-info col-2">Add Entry</button>
+            </form>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="btn btn-info col-2">Sign Out</button>
+            </form>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

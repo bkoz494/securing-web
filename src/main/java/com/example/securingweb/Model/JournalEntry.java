@@ -1,18 +1,19 @@
 package com.example.securingweb.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 
 @Entity
 public class JournalEntry {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 //    Date date;
+    String dateAndTime;
     String text;
     Long userId;
 
@@ -46,5 +47,13 @@ public class JournalEntry {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public void setDateAndTime(String dateAndTime) {
+        this.dateAndTime = dateAndTime;
+    }
+
+    public String getDateAndTime() {
+        return dateAndTime;
     }
 }
