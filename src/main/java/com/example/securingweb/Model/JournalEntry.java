@@ -16,6 +16,14 @@ public class JournalEntry {
     String text;
     Long userId;
 
+    public JournalEntry(String text, Long userId) {
+        this.text = text;
+        this.userId = userId;
+    }
+
+    public JournalEntry() {
+    }
+
     public JournalEntry(String text) {
         this.text = text;
     }
@@ -34,5 +42,9 @@ public class JournalEntry {
 
     public Long getId() {
         return id;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

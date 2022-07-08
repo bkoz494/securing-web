@@ -1,6 +1,8 @@
 package com.example.securingweb.Controller;
 
+import com.example.securingweb.DAO.JournalRepo;
 import com.example.securingweb.DAO.UserRepository;
+import com.example.securingweb.Model.JournalEntry;
 import com.example.securingweb.Model.MyUser;
 import com.example.securingweb.Model.RegisterInfo;
 import com.example.securingweb.Service.RegisterValidationService;
@@ -26,6 +28,8 @@ public class RegisterController {
     private UserRepository repository;
     @Autowired
     private RegisterValidationService registerValidation;
+    @Autowired
+    private JournalRepo journalRepo;
 
     @GetMapping("/register")
     public String greetingForm(Model model) {
@@ -44,11 +48,11 @@ public class RegisterController {
             return "register";
         }
         repository.save(new MyUser(registerInfo.getUsername(), registerInfo.getPassword()));
-//        System.out.println("---------------- SAVE TO DB");
-//        System.out.println(repository.findByUsername(registerInfo.getUsername()).toString());
+//        Long userId = repository.findByUsername(registerInfo.getUsername()).getId();
+//        journalRepo.save(new JournalEntry("TEST", userId));
 
         model.addAttribute("registerSuccess", registerInfo);
-        return "registerSuccess";
+        return "login";
     }
 //    public UserDetailsService userDetailsService(String username, String password) {
 //        UserDetails user =
