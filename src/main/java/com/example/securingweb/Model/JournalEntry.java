@@ -12,7 +12,6 @@ public class JournalEntry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-//    Date date;
     String dateAndTime;
     String text;
     Long userId;

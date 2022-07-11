@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -61,4 +62,23 @@ public class JournalController {
         return "redirect:/journal";
     }
 
+    @PostMapping("/updateEntry")
+    public String saveEmployee(@ModelAttribute("journalEntry") JournalEntry journalEntry) {
+        journalRepo.save(journalEntry);
+        return "redirect:/journal";
+    }
+
+    @GetMapping("/showFormForUpdate/{id}")
+    public String updateForm(@PathVariable(value = "id") long id, Model model) {
+        JournalEntry journalEntry = journalRepo.findById(id).orElse(new JournalEntry());
+        model.addAttribute("journalEntry", journalEntry);
+        return "update";
+    }
+
+    @GetMapping("/deleteEntry/{id}")
+    public String deleteThroughId(@PathVariable(value = "id") long id) {
+        journalRepo.deleteById(id);
+        return "redirect:/journal";
+
+    }
 }
