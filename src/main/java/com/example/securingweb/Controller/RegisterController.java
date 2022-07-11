@@ -44,6 +44,12 @@ public class RegisterController {
             ObjectError error = new ObjectError("globalError", err);
             result.addError(error);
         }
+        err = new String();
+        err = registerValidation.uniquenessConfirmation(registerInfo);
+        if(!err.isEmpty()){
+            ObjectError error = new ObjectError("globalError", err);
+            result.addError(error);
+        }
         if (result.hasErrors()) {
             return "register";
         }
