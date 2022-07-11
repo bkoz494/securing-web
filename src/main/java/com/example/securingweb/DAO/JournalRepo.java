@@ -13,8 +13,8 @@ import java.util.List;
 public interface JournalRepo extends JpaRepository<JournalEntry, Long> {
     List<JournalEntry> findByUserId(Long userId);
     @Modifying(clearAutomatically = true)
-    @Query("update JournalEntry u set u.text = :text where u.id = :id")
-    void updateById(@Param("text") String text, @Param("id") Long id);
+    @Query("update JournalEntry u set u.text = :text, u.dateAndTime = :date where u.id = :id")
+    void updateById(@Param("text") String text, @Param("date") String date, @Param("id") Long id);
 //    @Modifying(clearAutomatically = true)
 //    @Query("update JournalEntry u set u.text = :text where u.dateAndTime = :date")
 //    void updateByDate(@Param("text") String text, @Param("date") String date);
