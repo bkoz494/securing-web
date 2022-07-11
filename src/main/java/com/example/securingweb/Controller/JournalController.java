@@ -53,24 +53,27 @@ public class JournalController {
         String currentPrincipalName = authentication.getName();
         MyUser currentUser = userRepo.findByUsername(currentPrincipalName);
         journalEntry.setUserId(currentUser.getId());
-        //DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).format(anotherSummerDay
-//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime dateTime = LocalDateTime.now();
-        DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).format(dateTime);
-        journalEntry.setDateAndTime(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).format(dateTime).toString());
+//        DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).format(dateTime);
+        journalEntry.setDateAndTime(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).format(dateTime).toString());
         journalRepo.save(journalEntry);
         return "redirect:/journal";
     }
 
     @PostMapping("/updateEntry")
     public String saveEmployee(@ModelAttribute("journalEntry") JournalEntry journalEntry) {
-        journalRepo.save(journalEntry);
+        System.out.println("----------------------\n"+journalEntry.toString());
+//        journalRepo.updateById(journalEntry.getText(), journalEntry.getId());
+//        LocalDateTime dateTime = LocalDateTime.now();
+        journalRepo.updateByDate(journalEntry.getText(), journalEntry.getDateAndTime());
+//        Long id =
         return "redirect:/journal";
     }
 
     @GetMapping("/showFormForUpdate/{id}")
     public String updateForm(@PathVariable(value = "id") long id, Model model) {
         JournalEntry journalEntry = journalRepo.findById(id).orElse(new JournalEntry());
+        System.out.println("------------------ Entry tu update:\n"+journalEntry.toString());
         model.addAttribute("journalEntry", journalEntry);
         return "update";
     }

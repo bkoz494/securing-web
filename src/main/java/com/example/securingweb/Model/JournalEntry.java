@@ -55,4 +55,18 @@ public class JournalEntry {
     public String getDateAndTime() {
         return dateAndTime;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "JournalEntry{" +
+                "id=" + id +
+                ", dateAndTime='" + dateAndTime + '\'' +
+                ", text='" + text + '\'' +
+                ", userId=" + userId +
+                '}';
+    }
 }
