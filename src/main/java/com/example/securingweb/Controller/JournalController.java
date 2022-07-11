@@ -63,10 +63,9 @@ public class JournalController {
     @PostMapping("/updateEntry")
     public String saveEmployee(@ModelAttribute("journalEntry") JournalEntry journalEntry) {
         System.out.println("----------------------\n"+journalEntry.toString());
-//        journalRepo.updateById(journalEntry.getText(), journalEntry.getId());
+        journalRepo.updateById(journalEntry.getText(), journalEntry.getId());
 //        LocalDateTime dateTime = LocalDateTime.now();
-        journalRepo.updateByDate(journalEntry.getText(), journalEntry.getDateAndTime());
-//        Long id =
+//        journalRepo.updateByDate(journalEntry.getText(), journalEntry.getDateAndTime());
         return "redirect:/journal";
     }
 
