@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface JournalRepo extends JpaRepository<JournalEntry, Long> {
     List<JournalEntry> findByUserId(Long userId);
-    void updateById(Long id);
+//    void updateById(Long id);
 }
