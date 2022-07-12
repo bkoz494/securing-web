@@ -6,9 +6,7 @@ import com.example.securingweb.Model.JournalEntry;
 import com.example.securingweb.Model.MyUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.annotation.CurrentSecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.Calendar;
 
 @Controller
 public class JournalController {
@@ -29,8 +26,6 @@ public class JournalController {
     private JournalRepo journalRepo;
     @Autowired
     private UserRepository userRepo;
-//    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
 
     @GetMapping({"/journal"})
     public ModelAndView showUsersEntries(@CurrentSecurityContext(expression = "authentication") Authentication authentication) {
@@ -54,7 +49,6 @@ public class JournalController {
         MyUser currentUser = userRepo.findByUsername(currentPrincipalName);
         journalEntry.setUserId(currentUser.getId());
         LocalDateTime dateTime = LocalDateTime.now();
-//        DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).format(dateTime);
         journalEntry.setDateAndTime(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).format(dateTime).toString());
         journalRepo.save(journalEntry);
         return "redirect:/journal";
@@ -65,7 +59,6 @@ public class JournalController {
         System.out.println("----------------------\n"+journalEntry.toString());
         LocalDateTime dateTime = LocalDateTime.now();
         journalRepo.updateById(journalEntry.getText(), DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).format(dateTime).toString(), journalEntry.getId());
-//        journalRepo.updateByDate(journalEntry.getText(), journalEntry.getDateAndTime());
         return "redirect:/journal";
     }
 

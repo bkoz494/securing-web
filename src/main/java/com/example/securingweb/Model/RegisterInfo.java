@@ -3,7 +3,6 @@ package com.example.securingweb.Model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 
 @Entity
 public class RegisterInfo {

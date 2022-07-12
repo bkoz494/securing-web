@@ -1,10 +1,6 @@
 package com.example.securingweb.Model;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 
 @Entity
 public class JournalEntry {
