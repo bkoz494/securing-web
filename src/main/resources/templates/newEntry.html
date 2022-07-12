@@ -1,6 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <style>
+        .error {
+        color: red;
+        }
+    </style>
     <meta charset="ISO-8859-1">
     <title>Add Entry</title>
     <link rel="stylesheet"
@@ -14,6 +19,9 @@
     <hr>
     <form action="#" th:action="@{/save}" th:object="${journalEntry}"
           method="POST">
+        <div th:if="${#fields.hasErrors('global')}">
+            <p th:each="err : ${#fields.errors('global')}" th:text="${err}" class="error" />
+        </div>
         <input type="text" th:field="*{text}" name="text" class="form-control mb-4 col-4">
         <button type="submit" class="btn btn-info col-2">Save Entry</button>
     </form>

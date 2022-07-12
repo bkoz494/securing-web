@@ -8,7 +8,6 @@ import javax.validation.constraints.NotEmpty;
 public class RegisterInfo {
     @Id
     @NotEmpty(message = "User's name cannot be empty.")
-//    @Size(min = 5, max = 250)
     String username;
     String password;
     String confirmPassword;
